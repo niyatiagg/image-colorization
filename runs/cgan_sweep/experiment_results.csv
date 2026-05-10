@@ -1,0 +1,4 @@
+lr_g,lr_d,lambda_l1,batch_size,best_val_l1,output_dir,epochs,subset_size,seed
+0.0002,0.0002,50.0,32,0.09940856637863013,./runs/cgan_sweep/lrg_0p0002_lrd_0p0002_l1_50,10,4000,42
+0.0002,0.0002,100.0,32,0.0878402699644749,./runs/cgan_sweep/lrg_0p0002_lrd_0p0002_l1_100,10,4000,42
+0.0002,0.0002,200.0,32,0.08221656943743046,./runs/cgan_sweep/lrg_0p0002_lrd_0p0002_l1_200,10,4000,42

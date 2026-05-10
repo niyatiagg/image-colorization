@@ -1,0 +1,18 @@
+# Pin stack that works on Ubuntu + NVIDIA driver 535 (CUDA user-mode 12.x) with PyTorch cu121 wheels.
+# Install: pip install -r requirements-controlnet.txt
+#
+# Flash-Attention 3 registration in diffusers>=0.36 breaks on torch 2.4; keep diffusers<=0.31 until torch>=2.6.
+
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch==2.4.1
+torchvision==0.19.1
+
+diffusers==0.31.0
+transformers==4.46.3
+accelerate>=0.26.0
+
+opencv-python-headless
+controlnet_aux
+scikit-image
+pillow
+numpy
