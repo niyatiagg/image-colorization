@@ -16,3 +16,6 @@ controlnet_aux
 scikit-image
 pillow
 numpy
+
+# Optional: Word export (python build_report_docx.py -> report.docx)
+python-docx>=1.1.0

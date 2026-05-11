@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Dataset / cache (large; regenerated on download)
+data/
+models--*/
+.locks/
+CACHEDIR.TAG
+
+# Training artifacts: weights, optimizer state, process artifacts
+runs/**/*.pt
+runs/**/training_state.pt
+runs/**/*.pid
+runs/**/*.log
+
+# OS / editor
+.DS_Store
+*.swp
