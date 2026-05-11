@@ -1,0 +1,2 @@
+lr_g,lr_d,lambda_l1,batch_size,best_val_l1,final_train_g,final_train_d,final_train_l1,final_val_l1,output_dir,epochs,subset_size,seed
+0.0001,0.0002,200.0,32,0.06996532701528989,25.06363811324128,0.0799630721119249,0.09255704712287514,0.08257512347056316,/home/ubuntu/image-colorization/runs/my_cgan_study/phase2_best,50,4000,42

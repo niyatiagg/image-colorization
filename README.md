@@ -144,6 +144,23 @@ python run_full_comparison_study.py --output-root ./runs/final_comparison
 
 This runs the CNN, the cGAN study, and the ControlNet recolour, then aggregates best metrics into a single CSV.
 
+### Project report (LaTeX + Word)
+
+- **`report.tex`** — IEEE-style conference paper (abstract through conclusion, bibliography, **Appendix A** with qualitative comparison figures embedded from `runs/…`).
+- **`report.docx`** — Word export with the same narrative, tables, and appendix images. Regenerate after changing results or swapping preview PNGs:
+
+  ```bash
+  pip install python-docx   # also listed in requirements-controlnet.txt
+  python build_report_docx.py
+  ```
+
+  Build the PDF (requires a TeX distribution, e.g. `texlive-latex-extra`):
+
+  ```bash
+  pdflatex -interaction=nonstopmode report.tex
+  pdflatex -interaction=nonstopmode report.tex
+  ```
+
 ### Tech stack
 
 - **Python 3.12**, **PyTorch 2.4 (CUDA 12.1 wheels)**
