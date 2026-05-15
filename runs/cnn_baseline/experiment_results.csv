@@ -1,2 +1,2 @@
 lr,batch_size,best_val_l1,final_train_l1,final_val_l1,output_dir,epochs,subset_size,seed
-0.001,32,0.06647454,0.06560638,0.06692404,/home/ubuntu/image-colorization/runs/cnn_baseline,50,4000,42
+0.001,32,0.0666477270424366,0.06543377153905092,0.06709712514510521,./runs/cnn_baseline,50,4000,42
