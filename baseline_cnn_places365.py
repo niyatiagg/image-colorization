@@ -139,11 +139,13 @@ def build_dataloaders(
     val_fraction: float,
     seed: int,
 ):
+    extracted = os.path.join(data_root, "data_256_standard")
+    needs_download = not os.path.isdir(extracted)
     base = Places365(
         root=data_root,
         split="train-standard",
         small=True,
-        download=True,
+        download=needs_download,
     )
     total_size = len(base)
     subset_size = min(subset_size, total_size)
@@ -191,13 +193,16 @@ def _append_experiment_csv(path: str, row: Dict[str, Any], fieldnames: List[str]
 def _append_epoch_metrics_row(
     out_dir: str, epoch: int, train_l1: float, val_l1: float
 ) -> None:
-    path = os.path.join(out_dir, "epoch_metrics.csv")
-    exists = os.path.isfile(path)
-    with open(path, "a", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=["epoch", "train_l1", "val_l1"])
-        if not exists:
-            w.writeheader()
-        w.writerow({"epoch": epoch, "train_l1": train_l1, "val_l1": val_l1})
+    row = {"epoch": epoch, "train_l1": train_l1, "val_l1": val_l1}
+    fieldnames = ["epoch", "train_l1", "val_l1"]
+    for name in ("epoch_metrics.csv", "epoch_results.csv"):
+        path = os.path.join(out_dir, name)
+        exists = os.path.isfile(path)
+        with open(path, "a", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=fieldnames)
+            if not exists:
+                w.writeheader()
+            w.writerow(row)
 
 
 def train(args: argparse.Namespace) -> Dict[str, Any]:
@@ -225,9 +230,10 @@ def train(args: argparse.Namespace) -> Dict[str, Any]:
 
     os.makedirs(args.output_dir, exist_ok=True)
     best_val = float("inf")
-    metrics_path = os.path.join(args.output_dir, "epoch_metrics.csv")
-    if os.path.isfile(metrics_path):
-        os.remove(metrics_path)
+    for fname in ("epoch_metrics.csv", "epoch_results.csv"):
+        metrics_path = os.path.join(args.output_dir, fname)
+        if os.path.isfile(metrics_path):
+            os.remove(metrics_path)
     last_train_l1 = 0.0
     last_val_l1 = 0.0
 

@@ -288,15 +288,55 @@ def main() -> None:
             root / "runs/controlnet_recolor_10ep/preview_epoch_004.png",
             "Figure A.4 — Ablation: from_unet + grayscale (epoch 4, 128²).",
         ),
+        (
+            root / "figures/zebra_progression.png",
+            "Figure A.5 — ControlNet zebra sample at every checkpoint (epoch 1 → 10), "
+            "framed by the grayscale input and the colour ground truth. Stripes are "
+            "preserved at every epoch; visible learning signal is chroma drift.",
+        ),
     ]
     for path, cap in imgs:
         _add_figure(doc, path, cap)
 
-    doc.add_heading("Appendix B — Reproducibility", level=1)
+    doc.add_heading("Appendix B — Quantitative training curves", level=1)
+    _add_para(
+        doc,
+        "Plots produced by build_report_plots.py from the per-epoch CSVs written by "
+        "the training scripts (runs/<run>/epoch_metrics.csv and "
+        "runs/my_cgan_study/phase1/experiment_results.csv). Re-run that script after "
+        "additional training to refresh the figures.",
+    )
+    curves = [
+        (
+            root / "figures/cgan_phase1_sweep.png",
+            "Figure B.1 — cGAN phase-1 sweep: best val L1 on ab for each of the 18 "
+            "configurations (3 λ_L1 × 6 (lr_G, lr_D) pairs). Star marks the winning "
+            "configuration used in phase 2.",
+        ),
+        (
+            root / "figures/cgan_phase2_curves.png",
+            "Figure B.2 — cGAN phase-2 best config, 50 epochs. (a) train/val L1 — "
+            "validation reaches its minimum at epoch 15 and degrades afterwards. "
+            "(b) generator/discriminator losses on a symlog axis — D collapses to "
+            "near-zero for ~15 epochs before adversarial dynamics re-engage.",
+        ),
+        (
+            root / "figures/controlnet_curves.png",
+            "Figure B.3 — ControlNet softedge, 10 epochs. (a) latent ε-prediction "
+            "MSE (train/val). (b) sample PSNR (dB) and SSIM on the fixed preview "
+            "batch after full DDIM sampling and luminance lock; SSIM stays ≥ 0.95 "
+            "throughout, confirming the structural-preservation claim.",
+        ),
+    ]
+    for path, cap in curves:
+        _add_figure(doc, path, cap)
+
+    doc.add_heading("Appendix C — Reproducibility", level=1)
     _add_para(
         doc,
         "See README.md and requirements-controlnet.txt in the repository. "
-        "LaTeX source: report.tex. Regenerate this Word file with: python build_report_docx.py",
+        "LaTeX source: report.tex. Regenerate this Word file with: python build_report_docx.py. "
+        "Regenerate the quantitative figures with: python build_report_plots.py.",
     )
 
     out = root / "report.docx"
